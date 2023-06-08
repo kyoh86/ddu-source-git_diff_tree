@@ -1,0 +1,65 @@
+*ddu-source-git_diff_tree.txt*			git diff-tree source for ddu.vim
+
+Author: kyoh86 <me@kyoh86.dev>
+License: MIT License
+URL: https://github.com/kyoh86/ddu-source-git_diff_tree
+
+
+==============================================================================
+CONTENTS				*ddu-source-git_diff_tree-contents*
+
+Introduction				|ddu-source-git_diff_tree-introdution|
+Install					|ddu-source-git_diff_tree-install|
+Examples				|ddu-source-git_diff_tree-examples|
+Params					|ddu-source-git_diff_tree-params|
+Actions					|ddu-source-git_diff_tree-actions|
+About					|ddu-source-git_diff_tree-about|
+
+
+==============================================================================
+INTRODUCTION				*ddu-source-git_diff_tree-introdution*
+
+ddu.vim source collects files in the commit.
+
+
+==============================================================================
+INSTALL					*ddu-source-git_diff_tree-install*
+
+It depends on "|ddu|.vim", "|denops.vim|" and "|ddu-kind-file|".
+
+https://github.com/Shougo/ddu.vim
+https://github.com/vim-denops/denops.vim
+https://github.com/Shougo/ddu-kind-file
+
+
+==============================================================================
+EXAMPLES				*ddu-source-git_diff_tree-examples*
+
+>
+	" Use git_diff_tree source.
+	call ddu#start({
+	    \ 'sources': [{
+	    \    'name': 'git_diff_tree',
+	    \    'params': { 'commitHash': 'abcdef' }
+	    \ }],
+	    \ 'kindOptions': { 'file': { 'defaultAction': 'open' } }
+	    \ })
+<
+
+
+==============================================================================
+PARAMS					*ddu-source-git_diff_tree-params*
+
+				*ddu-source-git_diff_tree-params-commitHash*
+commitHash
+	Target commit hash.
+
+==============================================================================
+ACTIONS					*ddu-source-git_diff_tree-actions*
+
+git_diff_tree_project uses |ddu-kind-file| actions.
+You can see their actions in |ddu-kind-file-actions|.
+
+
+==============================================================================
+vim:tw=78:ts=8:ft=help:norl:noet:fen:
