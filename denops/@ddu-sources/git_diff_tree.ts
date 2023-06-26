@@ -1,5 +1,5 @@
-import type { Denops } from "https://deno.land/x/denops_std@v5.0.1/mod.ts";
 import type { GatherArguments } from "https://deno.land/x/ddu_vim@v3.2.7/base/source.ts";
+import { Denops, fn } from "https://deno.land/x/ddu_vim@v3.2.3/deps.ts";
 import type { ActionData as FileActionData } from "https://deno.land/x/ddu_kind_file@v0.5.2/file.ts";
 
 import { BaseSource, Item } from "https://deno.land/x/ddu_vim@v3.2.7/types.ts";
@@ -10,6 +10,7 @@ type ActionData = FileActionData;
 
 type Params = {
   commitHash: string;
+  cwd?: string;
 };
 
 async function err(denops: Denops, msg: string) {
@@ -30,37 +31,45 @@ export class Source extends BaseSource<Params, ActionData> {
   override kind = "file";
 
   override gather({ denops, sourceParams }: GatherArguments<Params>) {
-    const { status, stderr, stdout } = new Deno.Command("git", {
-      args: [
-        "diff-tree",
-        "--no-commit-id",
-        "--name-only",
-        "-r",
-        sourceParams.commitHash,
-      ],
-      stdin: "null",
-      stderr: "piped",
-      stdout: "piped",
-    }).spawn();
-    status.then((stat) => {
-      if (!stat.success) {
-        stderr
+    return new ReadableStream<Item<ActionData>[]>({
+      async start(controller) {
+        const cwd = sourceParams.cwd ?? await fn.getcwd(denops);
+        const { status, stderr, stdout } = new Deno.Command("git", {
+          args: [
+            "diff-tree",
+            "--no-commit-id",
+            "--name-only",
+            "-r",
+            sourceParams.commitHash,
+          ],
+          cwd,
+          stdin: "null",
+          stderr: "piped",
+          stdout: "piped",
+        }).spawn();
+        status.then((stat) => {
+          if (!stat.success) {
+            stderr
+              .pipeThrough(new TextDecoderStream())
+              .pipeThrough(new TextLineStream())
+              .pipeTo(new ErrorStream(denops));
+          }
+        });
+        stdout
           .pipeThrough(new TextDecoderStream())
           .pipeThrough(new TextLineStream())
-          .pipeTo(new ErrorStream(denops));
-      }
+          .pipeThrough(new ChunkedStream({ chunkSize: 1000 }))
+          .pipeTo(
+            new WritableStream<string[]>({
+              write: (files: string[]) => {
+                controller.enqueue(files.map((file) => {
+                  return { word: file, action: { path: file } };
+                }));
+              },
+            }),
+          );
+      },
     });
-    return stdout
-      .pipeThrough(new TextDecoderStream())
-      .pipeThrough(new TextLineStream())
-      .pipeThrough(
-        new TransformStream<string, Item<ActionData>>({
-          transform: (file, controller) => {
-            controller.enqueue({ word: file, action: { path: file } });
-          },
-        }),
-      )
-      .pipeThrough(new ChunkedStream({ chunkSize: 1000 }));
   }
 
   override params(): Params {
