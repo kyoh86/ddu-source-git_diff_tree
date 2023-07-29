@@ -1,9 +1,9 @@
-import type { GatherArguments } from "https://deno.land/x/ddu_vim@v3.4.2/base/source.ts";
-import { Denops, fn } from "https://deno.land/x/ddu_vim@v3.4.2/deps.ts";
+import type { GatherArguments } from "https://deno.land/x/ddu_vim@v3.4.4/base/source.ts";
+import { Denops, fn } from "https://deno.land/x/ddu_vim@v3.4.4/deps.ts";
 import type { ActionData as FileActionData } from "https://deno.land/x/ddu_kind_file@v0.5.3/file.ts";
 
-import { BaseSource, Item } from "https://deno.land/x/ddu_vim@v3.4.2/types.ts";
-import { TextLineStream } from "https://deno.land/std@0.194.0/streams/text_line_stream.ts";
+import { BaseSource, Item } from "https://deno.land/x/ddu_vim@v3.4.4/types.ts";
+import { TextLineStream } from "https://deno.land/std@0.196.0/streams/text_line_stream.ts";
 import { ChunkedStream } from "https://deno.land/x/chunked_stream@0.1.2/mod.ts";
 
 type ActionData = FileActionData;
