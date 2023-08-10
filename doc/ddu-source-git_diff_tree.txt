@@ -6,7 +6,8 @@ URL: https://github.com/kyoh86/ddu-source-git_diff_tree
 
 
 ==============================================================================
-CONTENTS				*ddu-source-git_diff_tree-contents*
+                                           *ddu-source-git_diff_tree-contents*
+Contents ~
 
 Introduction				|ddu-source-git_diff_tree-introdution|
 Install					|ddu-source-git_diff_tree-install|
@@ -17,13 +18,15 @@ About					|ddu-source-git_diff_tree-about|
 
 
 ==============================================================================
-INTRODUCTION				*ddu-source-git_diff_tree-introdution*
+                                        *ddu-source-git_diff_tree-introdution*
+Introduction ~
 
 ddu.vim source collects files in the commit.
 
 
 ==============================================================================
-INSTALL					*ddu-source-git_diff_tree-install*
+                                            *ddu-source-git_diff_tree-install*
+Install ~
 
 It depends on "|ddu|.vim", "|denops.vim|" and "|ddu-kind-file|".
 
@@ -33,7 +36,8 @@ https://github.com/Shougo/ddu-kind-file
 
 
 ==============================================================================
-EXAMPLES				*ddu-source-git_diff_tree-examples*
+                                           *ddu-source-git_diff_tree-examples*
+Examples ~
 
 >
 	" Use git_diff_tree source.
@@ -48,14 +52,29 @@ EXAMPLES				*ddu-source-git_diff_tree-examples*
 
 
 ==============================================================================
-PARAMS					*ddu-source-git_diff_tree-params*
+                                             *ddu-source-git_diff_tree-params*
+Params ~
 
-				*ddu-source-git_diff_tree-params-commitHash*
+                                  *ddu-source-git_diff_tree-params-commitHash*
 commitHash
+	(string)
 	Target commit hash.
 
+                                         *ddu-source-git_diff_tree-params-cwd*
+cwd
+	(string)
+	Get commit logs as if git is called in the path instead of the current
+	working directory (like `git -C`).
+	You can set like below:
+		`expand("%:p")`: calls git from the current buffer dir.
+		`getcwd()`: calls git from the current working directory.
+
+	Default: |getcwd()|
+
+
 ==============================================================================
-ACTIONS					*ddu-source-git_diff_tree-actions*
+                                            *ddu-source-git_diff_tree-actions*
+Actions ~
 
 git_diff_tree_project uses |ddu-kind-file| actions.
 You can see their actions in |ddu-kind-file-actions|.
