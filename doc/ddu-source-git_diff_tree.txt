@@ -13,6 +13,7 @@ Introduction				|ddu-source-git_diff_tree-introdution|
 Install					|ddu-source-git_diff_tree-install|
 Examples				|ddu-source-git_diff_tree-examples|
 Params					|ddu-source-git_diff_tree-params|
+ActionData				|ddu-source-git_diff_tree-action-data|
 Actions					|ddu-source-git_diff_tree-actions|
 About					|ddu-source-git_diff_tree-about|
 
@@ -81,6 +82,17 @@ commitHash
 cwd
 	(string)
 	DEPRECATED. Use |ddu-source-option-path| instead.
+
+
+==============================================================================
+                                        *ddu-source-git_diff_tree-action-data*
+ActionData ~
+
+This source generates action-data with property "path".
+
+path
+	(string)
+	File path.
 
 
 ==============================================================================
