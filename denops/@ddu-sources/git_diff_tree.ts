@@ -1,5 +1,6 @@
 import type { GatherArguments } from "https://deno.land/x/ddu_vim@v3.4.4/base/source.ts";
 import { Denops, fn } from "https://deno.land/x/ddu_vim@v3.4.4/deps.ts";
+import { treePath2Filename } from "https://deno.land/x/ddu_vim@v3.4.4/utils.ts";
 import type { ActionData as FileActionData } from "https://deno.land/x/ddu_kind_file@v0.5.3/file.ts";
 
 import { BaseSource, Item } from "https://deno.land/x/ddu_vim@v3.4.4/types.ts";
@@ -30,10 +31,19 @@ export class ErrorStream extends WritableStream<string> {
 export class Source extends BaseSource<Params, ActionData> {
   override kind = "file";
 
-  override gather({ denops, sourceParams }: GatherArguments<Params>) {
+  override gather(
+    { denops, sourceOptions, sourceParams }: GatherArguments<Params>,
+  ) {
     return new ReadableStream<Item<ActionData>[]>({
       async start(controller) {
-        const cwd = sourceParams.cwd ?? await fn.getcwd(denops);
+        const path = treePath2Filename(sourceOptions.path);
+        if (sourceParams.cwd) {
+          console.error(
+            `WARN: "cwd" for ddu-source-git_diff_tree is deprecated. Use sourceOptions.path instead.`,
+          );
+        }
+        const cwd = sourceParams.cwd ??
+          (path && path !== "" ? path : await fn.getcwd(denops));
         const { status, stderr, stdout } = new Deno.Command("git", {
           args: [
             "diff-tree",
