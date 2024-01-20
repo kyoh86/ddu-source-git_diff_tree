@@ -15,20 +15,6 @@ type Params = {
   commitHash: string;
 };
 
-async function err(denops: Denops, msg: string) {
-  await denops.call("ddu#util#print_error", msg, "ddu-source-git_diff_tree");
-}
-
-export class ErrorStream extends WritableStream<string> {
-  constructor(denops: Denops) {
-    super({
-      write: async (chunk, _controller) => {
-        await err(denops, chunk);
-      },
-    });
-  }
-}
-
 async function getCWD(denops: Denops, option?: string) {
   if (option && option !== "") {
     return option;
