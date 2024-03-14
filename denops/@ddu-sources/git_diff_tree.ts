@@ -7,7 +7,7 @@ import { BaseSource, Item } from "https://deno.land/x/ddu_vim@v3.10.3/types.ts";
 import { TextLineStream } from "https://deno.land/std@0.219.1/streams/text_line_stream.ts";
 import { join } from "https://deno.land/std@0.219.1/path/mod.ts";
 import { ChunkedStream } from "https://deno.land/x/chunked_stream@0.1.4/mod.ts";
-import { echoerrCommand } from "https://denopkg.com/kyoh86/denops-util@v0.0.6/command.ts";
+import { echoerrCommand } from "https://denopkg.com/kyoh86/denops-util@v0.0.7/command.ts";
 
 type ActionData = FileActionData;
 
@@ -31,7 +31,7 @@ export class Source extends BaseSource<Params, ActionData> {
     return new ReadableStream<Item<ActionData>[]>({
       async start(controller) {
         const cwd = await getCWD(denops, treePath2Filename(sourceOptions.path));
-        const { pipeOut, finalize, waitErr } = echoerrCommand(denops, "git", {
+        const { pipeOut, finalize, wait } = echoerrCommand(denops, "git", {
           args: [
             "diff-tree",
             "--no-commit-id",
@@ -41,25 +41,27 @@ export class Source extends BaseSource<Params, ActionData> {
           ],
           cwd,
         });
-        pipeOut
-          .pipeThrough(new TextLineStream())
-          .pipeThrough(new ChunkedStream({ chunkSize: 1000 }))
-          .pipeTo(
-            new WritableStream<string[]>({
-              write: (files: string[]) => {
-                controller.enqueue(files.map((file) => {
-                  return {
-                    word: file,
-                    action: { path: join(cwd, file), text: file },
-                  };
-                }));
-              },
-            }),
-          ).finally(async () => {
-            controller.close();
-            await waitErr;
-            await finalize();
-          });
+        await Promise.all([
+          pipeOut
+            .pipeThrough(new TextLineStream())
+            .pipeThrough(new ChunkedStream({ chunkSize: 1000 }))
+            .pipeTo(
+              new WritableStream<string[]>({
+                write: (files: string[]) => {
+                  controller.enqueue(files.map((file) => {
+                    return {
+                      word: file,
+                      action: { path: join(cwd, file), text: file },
+                    };
+                  }));
+                },
+              }),
+            ),
+          wait,
+        ]).finally(async () => {
+          controller.close();
+          await finalize();
+        });
       },
     });
   }
