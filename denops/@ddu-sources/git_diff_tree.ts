@@ -4,8 +4,8 @@ import { treePath2Filename } from "https://deno.land/x/ddu_vim@v3.10.3/utils.ts"
 import type { ActionData as FileActionData } from "https://deno.land/x/ddu_kind_file@v0.7.1/file.ts";
 
 import { BaseSource, Item } from "https://deno.land/x/ddu_vim@v3.10.3/types.ts";
-import { TextLineStream } from "https://deno.land/std@0.221.0/streams/text_line_stream.ts";
-import { join } from "https://deno.land/std@0.221.0/path/mod.ts";
+import { TextLineStream } from "https://deno.land/std@0.222.0/streams/text_line_stream.ts";
+import { join } from "https://deno.land/std@0.222.0/path/mod.ts";
 import { ChunkedStream } from "https://deno.land/x/chunked_stream@0.1.4/mod.ts";
 import { echoerrCommand } from "https://denopkg.com/kyoh86/denops-util@v0.0.7/command.ts";
 
