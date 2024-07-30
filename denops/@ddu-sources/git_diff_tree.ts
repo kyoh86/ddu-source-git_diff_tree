@@ -2,7 +2,7 @@ import type { GatherArguments } from "jsr:@shougo/ddu-vim@5.0.0/source";
 import type { Denops } from "jsr:@denops/std@7.0.0";
 import * as fn from "jsr:@denops/std@7.0.0/function";
 import { treePath2Filename } from "jsr:@shougo/ddu-vim@5.0.0/utils";
-import type { ActionData as FileActionData } from "https://deno.land/x/ddu_kind_file@v0.7.1/file.ts";
+import type { ActionData as FileActionData } from "jsr:@shougo/ddu-kind-file@0.8.0";
 
 import { BaseSource, type Item } from "jsr:@shougo/ddu-vim@5.0.0/types";
 import { TextLineStream } from "jsr:@std/streams@1.0.0";
