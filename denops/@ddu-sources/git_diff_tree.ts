@@ -1,11 +1,11 @@
-import type { GatherArguments } from "jsr:@shougo/ddu-vim@~6.1.0/source";
-import type { Denops } from "jsr:@denops/std@~7.1.0";
-import * as fn from "jsr:@denops/std@~7.1.0/function";
-import { treePath2Filename } from "jsr:@shougo/ddu-vim@~6.1.0/utils";
+import type { GatherArguments } from "jsr:@shougo/ddu-vim@~6.2.0/source";
+import type { Denops } from "jsr:@denops/std@~7.3.0";
+import * as fn from "jsr:@denops/std@~7.3.0/function";
+import { treePath2Filename } from "jsr:@shougo/ddu-vim@~6.2.0/utils";
 import type { ActionData as FileActionData } from "jsr:@shougo/ddu-kind-file@~0.9.0";
 
-import type { Item } from "jsr:@shougo/ddu-vim@~6.1.0/types";
-import { BaseSource } from "jsr:@shougo/ddu-vim@~6.1.0/source";
+import type { Item } from "jsr:@shougo/ddu-vim@~6.2.0/types";
+import { BaseSource } from "jsr:@shougo/ddu-vim@~6.2.0/source";
 import { TextLineStream } from "jsr:@std/streams@~1.0.0";
 import { join } from "jsr:@std/path@~1.0.2";
 import { ChunkedStream } from "jsr:@hibiki/chunked-stream@~0.1.4";
