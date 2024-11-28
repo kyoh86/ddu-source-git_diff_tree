@@ -1,6 +1,6 @@
 import type { GatherArguments } from "jsr:@shougo/ddu-vim@~7.0.0/source";
-import type { Denops } from "jsr:@denops/std@~7.3.0";
-import * as fn from "jsr:@denops/std@~7.3.0/function";
+import type { Denops } from "jsr:@denops/std@~7.4.0";
+import * as fn from "jsr:@denops/std@~7.4.0/function";
 import { treePath2Filename } from "jsr:@shougo/ddu-vim@~7.0.0/utils";
 import type { ActionData as FileActionData } from "jsr:@shougo/ddu-kind-file@~0.9.0";
 
