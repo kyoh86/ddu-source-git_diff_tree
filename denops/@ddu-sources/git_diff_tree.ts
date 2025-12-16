@@ -1,15 +1,15 @@
-import type { GatherArguments } from "jsr:@shougo/ddu-vim@~11.1.0/source";
-import type { Denops } from "jsr:@denops/std@~8.0.0";
-import * as fn from "jsr:@denops/std@~8.0.0/function";
-import { treePath2Filename } from "jsr:@shougo/ddu-vim@~11.1.0/utils";
-import type { ActionData as FileActionData } from "jsr:@shougo/ddu-kind-file@~1.0.0";
+import type { GatherArguments } from "@shougo/ddu-vim/source";
+import type { Denops } from "@denops/std";
+import * as fn from "@denops/std/function";
+import { treePath2Filename } from "@shougo/ddu-vim/utils";
+import type { ActionData as FileActionData } from "@shougo/ddu-kind-file";
 
-import type { Item } from "jsr:@shougo/ddu-vim@~11.1.0/types";
-import { BaseSource } from "jsr:@shougo/ddu-vim@~11.1.0/source";
-import { TextLineStream } from "jsr:@std/streams@~1.0.0";
-import { join } from "jsr:@std/path@~1.1.0";
-import { ChunkedStream } from "jsr:@hibiki/chunked-stream@~0.1.4";
-import { echoerrCommand } from "jsr:@kyoh86/denops-util@~0.1.0/command";
+import type { Item } from "@shougo/ddu-vim/types";
+import { BaseSource } from "@shougo/ddu-vim/source";
+import { TextLineStream } from "@std/streams";
+import { join } from "@std/path";
+import { ChunkedStream } from "@hibiki/chunked-stream";
+import { echoerrCommand } from "@kyoh86/denops-util/command";
 
 type ActionData = FileActionData;
 
